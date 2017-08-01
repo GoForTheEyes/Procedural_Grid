@@ -23,16 +23,24 @@ public class Grid : MonoBehaviour {
 
         vertices = new Vector3[(xSize + 1) * (ySize + 1)];
         Vector2[] uv = new Vector2[vertices.Length];
+
+        //tangents are used to make surface look bumpy
+        Vector4[] tangents = new Vector4[vertices.Length];
+        Vector4 tangent = new Vector4(1f, 0f, 0f, -1f);
+
+
         //iterates y and initialized i
         for (int i = 0, y =0; y <= ySize; y++) {
             //iterates x and y
             for (int x = 0; x <= xSize; x++,i++) {
                 vertices[i] = new Vector3(x, y);
                 uv[i] = new Vector2((float)x / xSize, (float)y / ySize);
+                tangents[i] = tangent;
             }
         }
         mesh.vertices = vertices;
         mesh.uv = uv;
+        mesh.tangents = tangents;
 
         //Triangles inside vertices
         //The triangle needs the first vertex to be smallest, and the second the hightest so it it is clockwise
